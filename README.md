@@ -5,4 +5,6 @@ Ubuntu as example:
 ``pip install selenium wikiquotes``  
 ## Running
 Set **name** and **nick** in script  
-``python bot.py``
+``python bot.py``  
+In a loop  
+``while true;do python bot.py;done``
