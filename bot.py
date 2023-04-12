@@ -7,6 +7,9 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
 from time import sleep
 
+name = 'Joseph Stalin'
+nick = 'Towarzysz'
+
 print('Starting bot...')
 
 options = webdriver.ChromeOptions()
@@ -30,21 +33,32 @@ def type_text(text):
 
 
 driver.get("https://www.wp.pl/")
+no_comment_section = True
 
 driver.find_element(By.XPATH, '//button[contains(text(), \'AKCEPTUJĘ I PRZECHODZĘ DO SERWISU\')]').click()
 sleep(1)
 
-move_and_click(random.choice(driver.find_elements(By.XPATH, '//a[@data-testid="link-box-item"]')[:10]))
-sleep(1)
+while no_comment_section:
+    no_comment_section = False
+    move_and_click(random.choice(driver.find_elements(By.XPATH, '//a[@data-testid="link-box-item"]')[:12]))
+    sleep(1)
 
-move_and_click(driver.find_element(By.XPATH, '//*[contains(text(), \'Dzieci widzą i słyszą. #StopMowieNienawiści.\')]'))
-sleep(1)
-type_text(wikiquotes.random_quote('Mao Zedong', 'english'))  # polski nie supportowany :(
+    try:
+        move_and_click(driver.find_element(By.XPATH,
+                                '//*[contains(text(), \'Dzieci widzą i słyszą. #StopMowieNienawiści.\')]'))
+        sleep(1)
+    except:
+        driver.get("https://www.wp.pl/")
+        no_comment_section = True
+        print('No comment section')
+
+
+type_text(wikiquotes.random_quote(name, 'english'))  # polski nie supportowany :(
 sleep(1)
 
 move_and_click(driver.find_element(By.XPATH, '//input[@placeholder="Twój nick"]'))
 sleep(1)
-type_text('Towarzysz')
+type_text(nick)
 sleep(1)
 
 driver.find_element(By.XPATH, '//button[contains(text(), \'Wyślij\')]').click()
