@@ -47,10 +47,12 @@ while no_comment_section:
         move_and_click(driver.find_element(By.XPATH,
                                 '//*[contains(text(), \'Dzieci widzą i słyszą. #StopMowieNienawiści.\')]'))
         sleep(1)
+
     except:
         driver.get("https://www.wp.pl/")
         no_comment_section = True
         print('No comment section')
+        sleep(1)
 
 
 type_text(wikiquotes.random_quote(name, 'english'))  # polski nie supportowany :(
