@@ -67,3 +67,4 @@ driver.find_element(By.XPATH, '//button[contains(text(), \'Wyślij\')]').click()
 sleep(1)
 
 driver.save_screenshot('{}.png'.format(datetime.datetime.now().timestamp()))
+print('Screenshot saved')
