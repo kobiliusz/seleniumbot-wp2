@@ -76,7 +76,7 @@ while no_comment_section:
         sleep(1)
 
 
-type_text('memeg.eu - Twórz własne memy ze swoich zdjęć i obrazków!')
+type_text('memeg. eu - Twórz własne memy ze swoich zdjęć i obrazków!')
 sleep(1)
 
 move_and_click(driver.find_element(By.XPATH, '//input[@placeholder="Twój nick"]'))
