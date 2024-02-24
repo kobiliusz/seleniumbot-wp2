@@ -2,18 +2,23 @@ import datetime
 import random
 import names
 
+from fake_useragent import UserAgent
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
 from time import sleep
 
 nick = names.get_first_name()
+ua = UserAgent()
+user_agent = ua.random
 
 print('Starting bot...')
+print(f'User Agent = {user_agent}')
 
 options = webdriver.ChromeOptions()
 options.add_argument('--headless')
 options.add_argument('--disable-gpu')  # Last I checked this was necessary.
+options.add_argument(f'--user-agent={user_agent}')
 driver = webdriver.Chrome(options=options)
 
 
