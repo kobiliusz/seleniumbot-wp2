@@ -26,7 +26,7 @@ def move_and_click(element):
     move = ActionChains(driver)
     move.move_to_element(element)
     move.perform()
-    driver.execute_script('window.scrollBy(0,400)')
+    driver.execute_script('window.scrollBy(0,300)')
     element.click()
 
 
