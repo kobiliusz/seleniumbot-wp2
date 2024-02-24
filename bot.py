@@ -26,7 +26,7 @@ def move_and_click(element):
     move = ActionChains(driver)
     move.move_to_element(element)
     move.perform()
-    driver.execute_script('window.scrollBy(0,300)')
+    driver.execute_script('window.scrollBy(0,400)')
     element.click()
 
 
@@ -44,9 +44,26 @@ sleep(1)
 
 while no_comment_section:
     no_comment_section = False
-    move_and_click(random.choice(driver.find_elements(By.XPATH, '//a[@data-testid="link-box-item"]')[:12]))
+
+    # noinspection PyBroadException
+    try:
+        move_and_click(random.choice(driver.find_elements(By.XPATH, '//a[@data-testid="link-box-item"]')[:12]))
+    except:
+        print('Something covering article links')
+        driver.get("https://www.wp.pl/")
+        sleep(1)
+        continue
+
     sleep(1)
 
+    # noinspection PyBroadException
+    try:
+        driver.find_element(By.XPATH, '//button[contains(text(), \'AKCEPTUJĘ I PRZECHODZĘ DO SERWISU\')]').click()
+        sleep(1)
+    except:
+        pass
+
+    # noinspection PyBroadException
     try:
         move_and_click(driver.find_element(By.XPATH,
                                 '//*[contains(text(), \'Dzieci widzą i słyszą. #StopMowieNienawiści.\')]'))
@@ -59,7 +76,7 @@ while no_comment_section:
         sleep(1)
 
 
-type_text('memeg.eu - Twórz własne memy!')
+type_text('memeg.eu - Twórz własne memy ze swoich zdjęć i obrazków!')
 sleep(1)
 
 move_and_click(driver.find_element(By.XPATH, '//input[@placeholder="Twój nick"]'))
