@@ -1,14 +1,13 @@
 import datetime
 import random
-import wikiquotes
+import names
 
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
 from time import sleep
 
-name = 'Joseph Stalin'
-nick = 'Towarzysz'
+nick = names.get_first_name()
 
 print('Starting bot...')
 
@@ -55,7 +54,7 @@ while no_comment_section:
         sleep(1)
 
 
-type_text(wikiquotes.random_quote(name, 'english'))  # polski nie supportowany :(
+type_text('memeg.eu - Twórz własne memy!')
 sleep(1)
 
 move_and_click(driver.find_element(By.XPATH, '//input[@placeholder="Twój nick"]'))
