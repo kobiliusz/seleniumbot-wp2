@@ -68,24 +68,36 @@ while no_comment_section:
         move_and_click(driver.find_element(By.XPATH,
                                 '//*[contains(text(), \'Dzieci widzą i słyszą. #StopMowieNienawiści.\')]'))
         sleep(1)
-
     except:
         driver.get("https://www.wp.pl/")
         no_comment_section = True
         print('No comment section')
         sleep(1)
 
+    type_text('memeg. eu - Twórz własne memy ze swoich zdjęć i obrazków!')
+    sleep(1)
 
-type_text('memeg. eu - Twórz własne memy ze swoich zdjęć i obrazków!')
-sleep(1)
+    # noinspection PyBroadException
+    try:
+        move_and_click(driver.find_element(By.XPATH, '//input[@placeholder="Twój nick"]'))
+        sleep(1)
+        type_text(nick)
+        sleep(1)
+    except:
+        driver.get("https://www.wp.pl/")
+        no_comment_section = True
+        print('No nick input')
+        sleep(1)
 
-move_and_click(driver.find_element(By.XPATH, '//input[@placeholder="Twój nick"]'))
-sleep(1)
-type_text(nick)
-sleep(1)
-
-driver.find_element(By.XPATH, '//button[contains(text(), \'Wyślij\')]').click()
-sleep(1)
+    # noinspection PyBroadException
+    try:
+        driver.find_element(By.XPATH, '//button[contains(text(), \'Wyślij\')]').click()
+        sleep(1)
+    except:
+        driver.get("https://www.wp.pl/")
+        no_comment_section = True
+        print('No send button')
+        sleep(1)
 
 driver.save_screenshot('{}.png'.format(datetime.datetime.now().timestamp()))
 print('Screenshot saved')
