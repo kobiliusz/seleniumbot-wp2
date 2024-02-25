@@ -7,13 +7,17 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
 from time import sleep
+from loguru import logger
+
+logger.remove()
+logger.add('log', level='INFO', rotation='5MB')
 
 nick = names.get_first_name()
 ua = UserAgent()
 user_agent = ua.random
 
-print('Starting bot...')
-print(f'User Agent = {user_agent}')
+logger.info('Starting bot...')
+logger.info(f'User Agent = {user_agent}')
 
 options = webdriver.ChromeOptions()
 options.add_argument('--headless')
@@ -49,7 +53,7 @@ while fail:
     try:
         move_and_click(random.choice(driver.find_elements(By.XPATH, '//a[@data-testid="link-box-item"]')[:12]))
     except:
-        print('Something covering article links')
+        logger.warning('Something covering article links')
         fail = True
         driver.get("https://www.wp.pl/")
         sleep(1)
@@ -72,7 +76,7 @@ while fail:
     except:
         driver.get("https://www.wp.pl/")
         fail = True
-        print('No comment section')
+        logger.warning('No comment section')
         sleep(1)
         continue
 
@@ -88,7 +92,7 @@ while fail:
     except:
         driver.get("https://www.wp.pl/")
         fail = True
-        print('No nick input')
+        logger.warning('No nick input')
         sleep(1)
         continue
 
@@ -99,9 +103,9 @@ while fail:
     except:
         driver.get("https://www.wp.pl/")
         fail = True
-        print('No send button')
+        logger.warning('No send button')
         sleep(1)
         continue
 
 driver.save_screenshot('{}.png'.format(datetime.datetime.now().timestamp()))
-print('Screenshot saved')
+logger.info('SUCCESS! Screenshot saved')
