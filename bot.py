@@ -37,19 +37,20 @@ def type_text(text):
 
 
 driver.get("https://www.wp.pl/")
-no_comment_section = True
+fail = True
 
 driver.find_element(By.XPATH, '//button[contains(text(), \'AKCEPTUJĘ I PRZECHODZĘ DO SERWISU\')]').click()
 sleep(1)
 
-while no_comment_section:
-    no_comment_section = False
+while fail:
+    fail = False
 
     # noinspection PyBroadException
     try:
         move_and_click(random.choice(driver.find_elements(By.XPATH, '//a[@data-testid="link-box-item"]')[:12]))
     except:
         print('Something covering article links')
+        fail = True
         driver.get("https://www.wp.pl/")
         sleep(1)
         continue
@@ -70,9 +71,10 @@ while no_comment_section:
         sleep(1)
     except:
         driver.get("https://www.wp.pl/")
-        no_comment_section = True
+        fail = True
         print('No comment section')
         sleep(1)
+        continue
 
     type_text('memeg. eu - Twórz własne memy ze swoich zdjęć i obrazków!')
     sleep(1)
@@ -85,9 +87,10 @@ while no_comment_section:
         sleep(1)
     except:
         driver.get("https://www.wp.pl/")
-        no_comment_section = True
+        fail = True
         print('No nick input')
         sleep(1)
+        continue
 
     # noinspection PyBroadException
     try:
@@ -95,9 +98,10 @@ while no_comment_section:
         sleep(1)
     except:
         driver.get("https://www.wp.pl/")
-        no_comment_section = True
+        fail = True
         print('No send button')
         sleep(1)
+        continue
 
 driver.save_screenshot('{}.png'.format(datetime.datetime.now().timestamp()))
 print('Screenshot saved')
